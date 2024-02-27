@@ -23,6 +23,10 @@ app.post(
   }
 );
 
+app.get("/", async (req: Request, res: Response, next: NextFunction) => {
+  res.status(200).send("Translator API");
+});
+
 app.use(errorHandler);
 
 app.listen(8080);
