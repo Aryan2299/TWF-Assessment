@@ -1,4 +1,5 @@
 const translator = require("translate-google");
+import { NextFunction } from "express";
 
 import { ClientError } from "../ClientError";
 import { TranslateDTO } from "../translator/dtos/translate.dto";
@@ -9,7 +10,10 @@ import {
   handleMissingInput,
 } from "../utils/helper";
 
-export async function translateText(translateDTO: TranslateDTO) {
+export async function translateText(
+  translateDTO: TranslateDTO,
+  next: NextFunction
+) {
   const { text, from = "en", to = "fr" } = translateDTO;
 
   handleInvalidTranslationType(from, to);
@@ -30,7 +34,9 @@ export async function translateText(translateDTO: TranslateDTO) {
     });
 
   if (translation === text.trim()) {
-    throw new ClientError(MESSAGES.TRANSLATION_ERR, ERR_CODES.CLIENT_ERR);
+    return next(
+      new ClientError(MESSAGES.TRANSLATION_ERR, ERR_CODES.CLIENT_ERR)
+    );
   }
 
   return translation;

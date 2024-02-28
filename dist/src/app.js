@@ -39,7 +39,7 @@ const errorHandler_1 = require("./middleware/errorHandler");
 exports.app = (0, express_1.default)();
 const router = (0, express_1.Router)();
 exports.app.use(express_1.default.json());
-router.post("/translate", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+exports.app.post("/translate", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let translation;
     try {
         const { text } = req.body;
@@ -52,9 +52,10 @@ router.post("/translate", (req, res, next) => __awaiter(void 0, void 0, void 0, 
     }
     res.status(200).json({ translation });
 }));
-router.get("/", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+exports.app.get("/", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     res.status(200).send("Translator API");
 }));
 exports.app.use(errorHandler_1.errorHandler);
-exports.app.use("/api/v1", router);
+// app.use("/api/v1", router);
 // app.listen(8080);
+exports.default = exports.app;

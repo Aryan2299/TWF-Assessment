@@ -7,7 +7,7 @@ export const app = express();
 const router = Router();
 app.use(express.json());
 
-router.post(
+app.post(
   "/translate",
   async (req: Request, res: Response, next: NextFunction) => {
     let translation;
@@ -16,7 +16,7 @@ router.post(
       const from = req.query.from as string;
       const to = req.query.to as string;
 
-      translation = await translateText({ text, from, to });
+      translation = await translateText({ text, from, to }, next);
     } catch (err: any) {
       return next(err);
     }
@@ -24,12 +24,14 @@ router.post(
   }
 );
 
-router.get("/", async (req: Request, res: Response, next: NextFunction) => {
+app.get("/", async (req: Request, res: Response, next: NextFunction) => {
   res.status(200).send("Translator API");
 });
 
 app.use(errorHandler);
 
-app.use("/api/v1", router);
+// app.use("/api/v1", router);
 
 // app.listen(8080);
+
+export default app;
