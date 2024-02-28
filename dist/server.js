@@ -12,8 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.app = void 0;
+exports.handler = exports.app = void 0;
 const express_1 = __importDefault(require("express"));
+const serverless_http_1 = __importDefault(require("serverless-http"));
 const translate_1 = require("./translator/translate");
 const errorHandler_1 = require("./middleware/errorHandler");
 exports.app = (0, express_1.default)();
@@ -34,5 +35,7 @@ exports.app.post("/translate", (req, res, next) => __awaiter(void 0, void 0, voi
 exports.app.get("/", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     res.status(200).send("Translator API");
 }));
+exports.app.use("/.netlify/functions/api", exports.app);
 exports.app.use(errorHandler_1.errorHandler);
 exports.app.listen(8080);
+exports.handler = (0, serverless_http_1.default)(exports.app);
