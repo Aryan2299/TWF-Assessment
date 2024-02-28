@@ -8,9 +8,9 @@ var MESSAGES;
     MESSAGES["MISSING_INPUT"] = "Missing input.";
     MESSAGES["TRANSLATION_ERR"] = "Couldn't translate.";
     MESSAGES["CANNOT_TRANSLATE"] = "Only English to French translation is allowed.";
-})(MESSAGES = exports.MESSAGES || (exports.MESSAGES = {}));
+})(MESSAGES || (exports.MESSAGES = MESSAGES = {}));
 var ERR_CODES;
 (function (ERR_CODES) {
     ERR_CODES[ERR_CODES["SERVER_ERR"] = 500] = "SERVER_ERR";
     ERR_CODES[ERR_CODES["CLIENT_ERR"] = 400] = "CLIENT_ERR";
-})(ERR_CODES = exports.ERR_CODES || (exports.ERR_CODES = {}));
+})(ERR_CODES || (exports.ERR_CODES = ERR_CODES = {}));

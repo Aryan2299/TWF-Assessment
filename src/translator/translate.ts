@@ -1,7 +1,7 @@
 const translator = require("translate-google");
 
 import { ClientError } from "../ClientError";
-import { TranslateDTO } from "translator/dtos/translate.dto";
+import { TranslateDTO } from "../translator/dtos/translate.dto";
 import { ERR_CODES, MESSAGES } from "../utils/contants";
 import {
   handleInvalidInput,

@@ -1,4 +1,4 @@
-import { ERR_CODES } from "utils/contants";
+import { ERR_CODES } from "./utils/contants";
 
 export class ClientError extends Error {
   public errCode: ERR_CODES;
