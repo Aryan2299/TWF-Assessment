@@ -14,12 +14,12 @@ const translator = require("translate-google");
 const ClientError_1 = require("../ClientError");
 const contants_1 = require("../utils/contants");
 const helper_1 = require("../utils/helper");
-function translateText(translateDTO) {
+function translateText(translateDTO, next) {
     return __awaiter(this, void 0, void 0, function* () {
         const { text, from = "en", to = "fr" } = translateDTO;
-        (0, helper_1.handleInvalidTranslationType)(from, to);
-        (0, helper_1.handleMissingInput)(text);
-        (0, helper_1.handleInvalidInput)(text);
+        (0, helper_1.handleInvalidTranslationType)(from, to, next);
+        (0, helper_1.handleMissingInput)(text, next);
+        (0, helper_1.handleInvalidInput)(text, next);
         let translation;
         yield translator(text, {
             from,
@@ -32,7 +32,7 @@ function translateText(translateDTO) {
             throw err;
         });
         if (translation === text.trim()) {
-            throw new ClientError_1.ClientError(contants_1.MESSAGES.TRANSLATION_ERR, contants_1.ERR_CODES.CLIENT_ERR);
+            return next(new ClientError_1.ClientError(contants_1.MESSAGES.TRANSLATION_ERR, contants_1.ERR_CODES.CLIENT_ERR));
         }
         return translation;
     });

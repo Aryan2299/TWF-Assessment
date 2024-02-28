@@ -45,7 +45,7 @@ exports.app.post("/translate", (req, res, next) => __awaiter(void 0, void 0, voi
         const { text } = req.body;
         const from = req.query.from;
         const to = req.query.to;
-        translation = yield (0, translate_1.translateText)({ text, from, to });
+        translation = yield (0, translate_1.translateText)({ text, from, to }, next);
     }
     catch (err) {
         return next(err);

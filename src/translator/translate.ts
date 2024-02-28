@@ -16,9 +16,9 @@ export async function translateText(
 ) {
   const { text, from = "en", to = "fr" } = translateDTO;
 
-  handleInvalidTranslationType(from, to);
-  handleMissingInput(text);
-  handleInvalidInput(text);
+  handleInvalidTranslationType(from, to, next);
+  handleMissingInput(text, next);
+  handleInvalidInput(text, next);
 
   let translation;
 
