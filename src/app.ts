@@ -1,12 +1,13 @@
-import express, { NextFunction, Request, Response } from "express";
+import express, { NextFunction, Request, Response, Router } from "express";
 
 import { translateText } from "./translator/translate";
 import { errorHandler } from "./middleware/errorHandler";
 
 export const app = express();
+const router = Router();
 app.use(express.json());
 
-app.post(
+router.post(
   "/translate",
   async (req: Request, res: Response, next: NextFunction) => {
     let translation;
@@ -23,10 +24,12 @@ app.post(
   }
 );
 
-app.get("/", async (req: Request, res: Response, next: NextFunction) => {
+router.get("/", async (req: Request, res: Response, next: NextFunction) => {
   res.status(200).send("Translator API");
 });
 
 app.use(errorHandler);
+
+app.use("/api/v1", router);
 
 // app.listen(8080);
